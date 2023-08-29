@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JoinMVCDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Depts">
+    <Key>
+      <PropertyRef Name="DId" />
+    </Key>
+    <Property Name="DId" Type="int" Nullable="false" />
+    <Property Name="DName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emps">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salary" Type="float" />
+    <Property Name="DId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Emps__DId__4CA06362">
+    <End Role="Depts" Type="Self.Depts" Multiplicity="0..1" />
+    <End Role="Emps" Type="Self.Emps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Depts">
+        <PropertyRef Name="DId" />
+      </Principal>
+      <Dependent Role="Emps">
+        <PropertyRef Name="DId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JoinMVCDbModelStoreContainer">
+    <EntitySet Name="Depts" EntityType="Self.Depts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emps" EntityType="Self.Emps" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Emps__DId__4CA06362" Association="Self.FK__Emps__DId__4CA06362">
+      <End Role="Depts" EntitySet="Depts" />
+      <End Role="Emps" EntitySet="Emps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JoinMVCDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dept">
+    <Key>
+      <PropertyRef Name="DId" />
+    </Key>
+    <Property Name="DId" Type="Int32" Nullable="false" />
+    <Property Name="DName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Emps" Relationship="Self.FK__Emps__DId__4CA06362" FromRole="Depts" ToRole="Emps" />
+  </EntityType>
+  <EntityType Name="Emp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Double" />
+    <Property Name="DId" Type="Int32" />
+    <NavigationProperty Name="Dept" Relationship="Self.FK__Emps__DId__4CA06362" FromRole="Emps" ToRole="Depts" />
+  </EntityType>
+  <Association Name="FK__Emps__DId__4CA06362">
+    <End Role="Depts" Type="Self.Dept" Multiplicity="0..1" />
+    <End Role="Emps" Type="Self.Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Depts">
+        <PropertyRef Name="DId" />
+      </Principal>
+      <Dependent Role="Emps">
+        <PropertyRef Name="DId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JoinMVCDbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Depts" EntityType="Self.Dept" />
+    <EntitySet Name="Emps" EntityType="Self.Emp" />
+    <AssociationSet Name="FK__Emps__DId__4CA06362" Association="Self.FK__Emps__DId__4CA06362">
+      <End Role="Depts" EntitySet="Depts" />
+      <End Role="Emps" EntitySet="Emps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
